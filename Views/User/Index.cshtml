@@ -1,0 +1,99 @@
+﻿@model IEnumerable<UserManager.Areas.Identity.Data.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <input id="chk1" type="checkbox" class="custom-checkbox" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastLogDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LockoutEnabled)
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+
+                    <form method="post"><input type="checkbox" class="custom-checkbox" asp-controller="User" asp-action="SelectItem" asp-route-id="@item.Id" /></form>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.RegDate)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.LastLogDate)
+                </td>
+                <td>
+                    @if (item.LockoutEnabled)
+                    {
+                        <a>Blocked</a>
+                    }
+                    else
+                    {
+                        <a>Unblocked</a>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Block</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css" />
+
+<script type="text/javascript" src="DataTables/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#chk1").click(function () {
+            if ($(this).is(":checked")) {
+                $(".custom-checkbox").prop("checked", true)
+            } else {
+                $(".custom-checkbox").prop("checked", false)
+            }
+        });
+    });
+</script>
